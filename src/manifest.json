@@ -1,5 +1,5 @@
 {
-    "manifest_version" : 3,
+    "manifest_version" : 2,
     "name" : "__MSG_ext_title__",
     "short_name" : "__MSG_ext_short_name__",
     "version" : "0.1.16.0",
@@ -14,43 +14,32 @@
     },
     "content_scripts" : [
         {
-            "matches" : [ "*://x.com/*", "*://twitter.com/*", "*://pbs.twimg.com/media/*", "*://tweetdeck.twitter.com/*", "*://mobile.twitter.com/*" ],
+            "matches" : [ "*://x.com/*", "*://pbs.twimg.com/media/*", "*://tweetdeck.x.com/*", "*://mobile.x.com/*" ],
             "js" : [ "js/jszip.min.js", "js/FileSaver.min.js", "js/inject_script.js", "js/tweet_api.js", "js/init.js" ],
             "run_at" : "document_start",
             "all_frames" : true
         },
         {
-            "matches" : [ "*://x.com/*", "*://twitter.com/*", "*://pbs.twimg.com/media/*", "*://tweetdeck.twitter.com/*", "*://mobile.twitter.com/*" ],
+            "matches" : [ "*://x.com/*", "*://pbs.twimg.com/media/*", "*://tweetdeck.x.com/*", "*://mobile.x.com/*" ],
             "js" : [ "js/twOpenOriginalImage.user.js" ],
             "run_at" : "document_end",
             "all_frames" : true
         }
     ],
-    "permissions" : [ "contextMenus", "downloads", "storage" ],
+    "permissions" : [ "contextMenus", "downloads", "storage", "*://*.twimg.com/*", "*://*.x.com/*" ],
     "background"  : {
-        "service_worker" : "background-wrapper.js"
+        "scripts" : [ "js/background.js" ],
+        "persistent" : false
     },
     "options_ui" : {
-        "page" : "html/options.html",
-        "open_in_tab" : false
+        "page" : "html/options.html"
     },
-    "action" : {
+    "browser_action" : {
         "default_icon" : "img/icon_48.png",
         "default_title" : "__MSG_ext_title__",
         "default_popup" : "html/options.html"
     },
-    "host_permissions" : [
-        "*://*.twimg.com/*",
-        "*://*.twitter.com/*",
-        "*://*.x.com/*"
-    ],
-    "web_accessible_resources" : [{
-        "matches" : [
-            "*://*.twitter.com/*",
-            "*://*.x.com/*"
-        ],
-        "resources" : [
-            "js/*.js"
-        ]
-    }]
+    "web_accessible_resources" : [
+        "js/*.js"
+    ]
 }
