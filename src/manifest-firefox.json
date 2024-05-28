@@ -1,45 +1,58 @@
 {
-    "manifest_version" : 2,
-    "name" : "X Open Original Image",
-    "short_name" : "xOpenOriginalImage",
-    "version" : "0.1.16.0",
-    "description" : "__MSG_ext_description__",
-    "author" : "furyu",
-    "default_locale" : "en",
-    "icons" : {
-        "16" : "img/icon_16.png",
-        "48" : "img/icon_48.png",
-        "96" : "img/icon_96.png",
-        "128" : "img/icon_128.png"
-    },
-    "content_scripts" : [
+    "manifest_version" : 2
+,   "name" : "X Open Original Image"
+,   "short_name" : "xOpenOriginalImage"
+,   "version" : "0.1.16.0"
+,   "description" : "__MSG_ext_description__"
+,   "author" : "furyu"
+,   "default_locale" : "en"
+,   "icons" : {
+        "16" : "img/icon_16.png"
+    ,   "48" : "img/icon_48.png"
+    ,   "96" : "img/icon_96.png"
+    ,   "128" : "img/icon_128.png"
+    }
+,   "permissions" : [
+        "contextMenus"
+    ,   "downloads"
+    ,   "storage"
+    ,   "*://*.twimg.com/*"
+    ,   "*://*.x.com/*"
+    ,   "*://*.cdn.vine.co/*"
+    ]
+,   "content_scripts" : [
         {
-            "matches" : [ "*://x.com/*", "*://pbs.twimg.com/media/*", "*://tweetdeck.x.com/*", "*://mobile.x.com/*" ],
-            "js" : [ "js/jszip.min.js", "js/FileSaver.min.js", "js/inject_script.js", "js/tweet_api.js", "js/init.js" ],
-            "run_at" : "document_start",
-            "all_frames" : true
+            "matches" : [ "*://x.com/*", "*://tweetdeck.x.com/*", "*://*.twimg.com/media/*", "*://mobile.x.com/*" ]
+        ,   "js" : [ "js/jszip.min.js", "js/FileSaver.min.js", "js/inject_script.js", "js/tweet_api.js", "js/init.js" ]
+        ,   "run_at" : "document_start"
+        ,   "all_frames" : true
         },
         {
-            "matches" : [ "*://x.com/*", "*://pbs.twimg.com/media/*", "*://tweetdeck.x.com/*", "*://mobile.x.com/*" ],
-            "js" : [ "js/twOpenOriginalImage.user.js" ],
-            "run_at" : "document_end",
-            "all_frames" : true
+            "matches" : [ "*://x.com/*", "*://*.twimg.com/media/*", "*://tweetdeck.x.com/*", "*://mobile.x.com/*" ]
+        ,   "js" : [ "js/twOpenOriginalImage.user.js" ]
+        ,   "run_at" : "document_end"
+        ,   "all_frames" : true
         }
     ],
-    "permissions" : [ "contextMenus", "downloads", "storage", "*://*.twimg.com/*", "*://*.x.com/*" ],
     "background"  : {
-        "scripts" : [ "js/background.js" ],
-        "persistent" : false
+        "scripts" : [ "js/background.js" ]
+    ,   "persistent" : false
     },
     "options_ui" : {
         "page" : "html/options.html"
     },
     "browser_action" : {
-        "default_icon" : "img/icon_48.png",
-        "default_title" : "__MSG_ext_title__",
-        "default_popup" : "html/options.html"
+        "default_icon" : "img/icon_48.png"
+    ,   "default_title" : "__MSG_ext_title__"
+    ,   "default_popup" : "html/options.html"
     },
     "web_accessible_resources" : [
         "js/*.js"
     ]
+,   "applications": {
+        "gecko": {
+            "id": "{8b344d1d-265c-4d48-8418-0b522359bad2}",
+            "strict_min_version": "57.0a1"
+        }
+    }
 }
